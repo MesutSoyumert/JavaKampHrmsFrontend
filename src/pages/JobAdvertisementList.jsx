@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Icon, Menu, Table } from "semantic-ui-react";
+import { Link } from 'react-router-dom';
 import JobAdvertisementService from "../services/jobAdvertisementService";
 
 export default function JobAdvertisementList() {
-  const [jobAdvertisements, setJobAdvertisement] = useState([]);
+  const [jobAdvertisements, setJobAdvertisements] = useState([]);
 
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .getJobAdvertisements()
-      .then((result) => setJobAdvertisement(result.data.data));
-  });
+      .then((result) => setJobAdvertisements(result.data.data));
+  },[]);
 
   return (
     <div>
@@ -34,7 +35,7 @@ export default function JobAdvertisementList() {
               <Table.Cell>{jobAdvertisement.dateOfApplicationDeadline}</Table.Cell>
               <Table.Cell>{jobAdvertisement.employer.companyName}</Table.Cell>
               <Table.Cell>{jobAdvertisement.employer.companyWebSiteDomain}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.generalJobPosition.jobPositionName}</Table.Cell>
+              <Table.Cell><Link to={`/jobadvertisements/${jobAdvertisement.id}`}>{jobAdvertisement.generalJobPosition.jobPositionName}</Link></Table.Cell>
               <Table.Cell>{jobAdvertisement.jobAdvertisementPublicationDate}</Table.Cell>
               <Table.Cell>{jobAdvertisement.jobDefiniton}</Table.Cell>
             </Table.Row>
