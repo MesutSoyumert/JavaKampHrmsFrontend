@@ -5,9 +5,13 @@ export default class EmployerService {
         return axios.get("http://localhost:8080/api/employers/getall")
     }
 
-    // addEmployer() {
-    //     return axios.post("http://localhost:8080/api/employers/add", employer)
-    // }
+    getEmployerById(employerId) {
+        return axios.get("http://localhost:8080/api/employers/getbyid?employerId=" + employerId)
+    }
+
+    addEmployer(values) {
+        return axios.post("http://localhost:8080/api/employers/add", values)
+    }
 
     // deleteEmployer() {
     //     return axios.post("http://localhost:8080/api/employers/delete", employer)

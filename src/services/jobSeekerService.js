@@ -9,9 +9,9 @@ export default class JobSeekerService {
         return axios.get("http://localhost:8080/api/jobseekers/getById?userId=" + id )
     }
 
-    // addJobSeeker() {
-    //     return axios.post("http://localhost:8080/api/jobseekers/add"  + jobSeeker)
-    // }
+    addJobSeeker(values) {
+         return axios.post("http://localhost:8080/api/jobseekers/add", values)
+    }
 
     // deleteJobSeeker() {
     //     return axios.post("http://localhost:8080/api/jobseekers/delete"  + jobSeeker)

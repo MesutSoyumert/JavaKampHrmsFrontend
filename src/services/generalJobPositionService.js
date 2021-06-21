@@ -5,9 +5,9 @@ export default class GeneralJobPositionService {
         return axios.get("http://localhost:8080/api/generaljobpositions/getall")
     }
 
-    // addGeneralJobPosition() {
-    //     return axios.post("http://localhost:8080/api/generaljobpositions/add" + generalJobPosition)
-    // }
+    addGeneralJobPosition(values) {
+        return axios.post("http://localhost:8080/api/generaljobpositions/add", values)
+    }
 
     // deleteGeneralJobPosition() {
     //     return axios.post("http://localhost:8080/api/generaljobpositions/delete" + generalJobPosition)

@@ -5,9 +5,9 @@ export default class SystemEmployeeService {
         return axios.get("http://localhost:8080/api/systememployees/getall")
     }
 
-    // addSystemEmployee() {
-    //     return axios.post("http://localhost:8080/api/systememployees/add"  + systmEmployee)
-    // }
+    addSystemEmployee(values) {
+        return axios.post("http://localhost:8080/api/systememployees/add", values)
+    }
 
     // deleteSystemEmployee() {
     //     return axios.post("http://localhost:8080/api/systememployees/delete"  + systmEmployee)

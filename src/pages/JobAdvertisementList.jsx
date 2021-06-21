@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Icon, Menu, Table } from "semantic-ui-react";
-import { Link } from 'react-router-dom';
+import { Icon, Menu, Table, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import JobAdvertisementService from "../services/jobAdvertisementService";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/actions/cartActions";
+import { toast } from "react-toastify";
 
 export default function JobAdvertisementList() {
+  const dispatch = useDispatch();
+
   const [jobAdvertisements, setJobAdvertisements] = useState([]);
 
   useEffect(() => {
@@ -11,7 +16,11 @@ export default function JobAdvertisementList() {
     jobAdvertisementService
       .getJobAdvertisements()
       .then((result) => setJobAdvertisements(result.data.data));
-  },[]);
+  }, []);
+  const handleAddToCart = (jobAdvertisement) => {
+    dispatch(addToCart(jobAdvertisement));
+    toast.success(`${jobAdvertisement.jobDefiniton} ilgilendiğim ilanlara eklendi`)
+  };
 
   return (
     <div>
@@ -25,19 +34,33 @@ export default function JobAdvertisementList() {
             <Table.HeaderCell>İş Pozisyonu</Table.HeaderCell>
             <Table.HeaderCell>Yayın Tarihi</Table.HeaderCell>
             <Table.HeaderCell>İş Tanımı</Table.HeaderCell>
+            <Table.HeaderCell></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {jobAdvertisements.map((jobAdvertisement) => (
             <Table.Row key={jobAdvertisement.id}>
-              <Table.Cell>{jobAdvertisement.citiesOfTurkey.citiesOfTurkeyName}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.dateOfApplicationDeadline}</Table.Cell>
+              <Table.Cell>
+                {jobAdvertisement.citiesOfTurkey.citiesOfTurkeyName}
+              </Table.Cell>
+              <Table.Cell>
+                {jobAdvertisement.dateOfApplicationDeadline}
+              </Table.Cell>
               <Table.Cell>{jobAdvertisement.employer.companyName}</Table.Cell>
-              <Table.Cell>{jobAdvertisement.employer.companyWebSiteDomain}</Table.Cell>
-              <Table.Cell><Link to={`/jobadvertisements/${jobAdvertisement.id}`}>{jobAdvertisement.generalJobPosition.jobPositionName}</Link></Table.Cell>
-              <Table.Cell>{jobAdvertisement.jobAdvertisementPublicationDate}</Table.Cell>
+              <Table.Cell>
+                {jobAdvertisement.employer.companyWebSiteDomain}
+              </Table.Cell>
+              <Table.Cell>
+                <Link to={`/jobadvertisements/${jobAdvertisement.id}`}>
+                  {jobAdvertisement.generalJobPosition.jobPositionName}
+                </Link>
+              </Table.Cell>
+              <Table.Cell>
+                {jobAdvertisement.jobAdvertisementPublicationDate}
+              </Table.Cell>
               <Table.Cell>{jobAdvertisement.jobDefiniton}</Table.Cell>
+              <Table.Cell><Button onClick={() => handleAddToCart(jobAdvertisement)}>İlgilendiğim ilanlara ekle</Button></Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>

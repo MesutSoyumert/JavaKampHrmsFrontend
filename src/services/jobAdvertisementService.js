@@ -21,9 +21,9 @@ export default class JobAdvertisementService {
         return axios.get("http://localhost:8080/api/jobadvertisements/getbyid?id=" + id)
     }
 
-    // addJobAdvertisement() {
-    //     return axios.post("http://localhost:8080/api/jobadvertisements/add", jobAdvertisement)
-    // }
+    addJobAdvertisement(values) {
+    return axios.post("http://localhost:8080/api/jobadvertisements/create", values)
+    }
 
     // deleteJobAdvertisement() {
     //     return axios.post("http://localhost:8080/api/jobadvertisements/delete", jobAdvertisement)
